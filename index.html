@@ -1,15 +1,28 @@
-<!doctype html>
-<html lang="en" ng-app>
-<head>
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
     <meta charset="utf-8">
     <title>Controle de Usuários</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="css/app.css">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+    <script scr="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
-</head>
-<body>
-
-<p>Nothing here {{'yet' + '!'}}</p>
-
-</body>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="node_modules/angular-animate/angular-animate.js"></script>
+    <script src="js/controller.js"></script>
+  </head>
+  <body>
+    <div ng-controller="PillsCtrl as pills" class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <ul class="nav nav-pills nav-justified">
+          <li ng-class="{active: isActive('/usuarios')}"><a href="#/usuarios" class="fonte-titulo">Usuários</a></li>
+          <li ng-class="{active: isActive('/cargos')}"><a href="#/cargos" class="fonte-titulo">Cargos</a></li>
+          <li ng-class="{active: isActive('/perfis')}"><a href="#/perfis" class="fonte-titulo">Perfis</a></li>
+        </ul>
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+    <div ng-view class="row"></div>
+  </body>
 </html>

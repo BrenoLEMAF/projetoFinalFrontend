@@ -1,0 +1,33 @@
+doctype html
+html(lang="en" ng-app="app")
+    head
+        meta(charset="utf-8")
+        title="Controle de Usuários"
+
+        link(href="bower_components/bootstrap/dist/css/bootstrap.css", rel="stylesheet")
+        link(href="css/app.css", rel="stylesheet")
+
+        script(scr="bower_components/bootstrap/dist/js/bootstrap.min.js")
+        script(src="bower_components/angular/angular.js")
+        script(src="bower_components/angular-route/angular-route.js")
+        script(src="node_modules/angular-animate/angular-animate.js")
+        script(src="js/controller.js")
+
+
+    body
+        div.row(ng-controller="PillsCtrl as pills")
+            div.col-md-1
+            div.col-md-10
+                ul.nav.nav-pills.nav-justified
+                    li(ng-class="{active: isActive('/usuarios')}")
+                        a(href="#/usuarios").fonte-titulo Usuários
+                    li(ng-class="{active: isActive('/cargos')}")
+                        a(href="#/cargos").fonte-titulo Cargos
+                    li(ng-class="{active: isActive('/perfis')}")
+                        a(href="#/perfis").fonte-titulo Perfis
+            div.col-md-1
+
+        div.row(ng-view)
+
+
+
