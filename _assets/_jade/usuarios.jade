@@ -1,61 +1,37 @@
-//
-   Created by breno on 25/04/16.
-div.row
-    div.col-md-1
-    div.col-md-10
-        table.table
-            thead
-                tr
-                    th.col-md-3 Nome
-                    th.col-md-2 CPF
-                    th.col-md-1 Cargo
-                    th.col-md-4 Perfis
-                    th.col-md-2 Ações
+table.table(ng-controller="UsuariosCtrl")
+    thead
+        tr
+            th.col-md-2 Nome
+            th.col-md-1 CPF
+            th.col-md-1 Data de Nascimento
+            th.col-md-1 Sexo
+            th.col-md-1 Cargo
+            th.col-md-4 Perfis
+            th.col-md-2 Ações
 
-            tbody
-                tr
-                    td.col-md-3 Breno
-                    td.col-md-2 32165498789
-                    td.col-md-1 Presidente
-                    td.col-md-4.
-                        Perfil A,
-                        Perfil B,
-                        Perfil C
-                    td.col-md-2
-                        button.btn.btn-primary(type="button") Editar
-                        button.btn.btn-primary(type="button") Remover
-                tr
-                    td.col-md-3 Raphael
-                    td.col-md-2 14785236985
-                    td.col-md-1 Gerente
-                    td.col-md-4.
-                        Perfil A,
-                        Perfil B,
-                        Perfil C
-                    td.col-md-2
-                        button.btn.btn-primary(type="button") Editar
-                        button.btn.btn-primary(type="button") Remover
-                tr
-                    td.col-md-3 Tetê
-                    td.col-md-2 98745632114
-                    td.col-md-1 Diretor
-                    td.col-md-4.
-                        Perfil A,
-                        Perfil B,
-                        Perfil C
-                    td.col-md-2
-                        button.btn.btn-primary(type="button") Editar
-                        button.btn.btn-primary(type="button") Remover
-    div.col-md-1
+    tbody
+        tr(ng-repeat="usuario in usuarios")
+            td.col-md-2 {{usuario.nome}}
+            td.col-md-1 {{usuario.cpf}}
+            td.col-md-1 {{usuario.dataNasc}}
+            td.col-md-1 {{usuario.sexo}}
+            td.col-md-1 {{usuario.cargo}}
+            td.col-md-4 {{usuario.perfis}}
+            td.col-md-2
+                button.btn.btn-primary(type="button") Editar
+                button.btn.btn-danger(type="button") &times Remover
 
 div.row
-    div.col-md-1
-    div.col-md-1
-        button.btn.btn-primary(type="button") + Adicionar
-    div.col-md-8
-    div.col-md-1
-        button.btn.btn-primary(type="button") Filtrar
-    div.col-md-1
+    div.col-md-1.text-right
+        label Filtro:
+    div.col-md-4
+        input#filtro.form-control(type="text", placeholder="filtrar por...")
+    div.col-md-1.col-md-offset-3
+        a.btn.btn-primary(href="#/usuarios/novo", role="button") + Adicionar
+
+
+
+
 
 
 

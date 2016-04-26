@@ -1,62 +1,29 @@
 
-<!--
-Created by breno on 25/04/16.
-
--->
+<table ng-controller="PerfisCtrl" class="table">
+  <thead>
+    <tr>
+      <th class="col-md-10">Perfil</th>
+      <th class="col-md-2">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="perfil in perfis">
+      <td class="col-md-10">{{perfil.nome}}</td>
+      <td class="col-md-2">
+        <button type="button" class="btn btn-primary">Editar</button>
+        <button type="button" class="btn btn-danger">&times Remover</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
 <div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-10">
-    <table class="table">
-      <thead>
-        <tr>
-          <th class="col-md-10">Perfil</th>
-          <th class="col-md-2">Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="col-md-10">Perfil A</td>
-          <td class="col-md-2">
-            <button type="button" class="btn btn-primary">Editar</button>
-            <button type="button" class="btn btn-primary">Remover</button>
-          </td>
-        </tr>
-        <tr>
-          <td class="col-md-10">Perfil B</td>
-          <td class="col-md-2">
-            <button type="button" class="btn btn-primary">Editar</button>
-            <button type="button" class="btn btn-primary">Remover</button>
-          </td>
-        </tr>
-        <tr>
-          <td class="col-md-10">Perfil C</td>
-          <td class="col-md-2">
-            <button type="button" class="btn btn-primary">Editar</button>
-            <button type="button" class="btn btn-primary">Remover</button>
-          </td>
-        </tr>
-        <tr>
-          <td class="col-md-10">Perfil D</td>
-          <td class="col-md-2">
-            <button type="button" class="btn btn-primary">Editar</button>
-            <button type="button" class="btn btn-primary">Remover</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="col-md-1"></div>
-</div>
-<div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-1 text-right">
-    <label for="usr">Name:</label>
+  <div class="col-md-2 text-right">
+    <label for="usr">Novo perfil:</label>
   </div>
   <div class="col-md-6">
     <input type="text" id="usr" class="form-control"/>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-4">
     <button type="button" class="btn btn-primary">+ Adicionar</button>
   </div>
-  <div class="col-md-1"></div>
 </div>

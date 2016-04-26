@@ -1,0 +1,55 @@
+div
+    div.row
+        div.col-md-12.text-center
+            p.fonte-titulo Adicionar novo usuário
+
+    form(role="form")
+        div.row.form-group
+            div.col-md-4
+                //NOME, CPF, DATA NASCIMENTO, SEXO, CARGO, LISTA DE PERFIS
+                label(for="nome") Nome:
+                input#nome.form-control(type="text" placeholder="Nome Completo")
+            div.col-md-4
+                label(for="cpf") CPF:
+                input#cpf.form-control(type="text" placeholder="CPF")
+            div.col-md-4
+                label(for="dataNasc") Data de Nascimento:
+                input#dataNasc.form-control(type="date" placeholder="Data de Nascimento")
+        div.row
+            div.col-md-4
+                label Sexo:
+                div
+                    label.radio-inline
+                        input(type="radio", name="sexo", value="F")
+                        | Feminino
+                    label.radio-inline
+                        input(type="radio", name="sexo", value="M")
+                        | Masculino
+
+            div.col-md-4
+                label Cargo:
+                select.form-control
+                    option Presidente
+                    option Gerente
+                    option Diretor
+                    option Supervisor
+                    option Analista
+            div.col-md-4
+                label Perfis:
+                div
+                    label.radio-inline
+                        input(type="checkbox" value="Perfil A")
+                        | Perfil A
+                    label.radio-inline
+                        input(type="checkbox" value="Perfil B")
+                        | Perfil B
+                    label.radio-inline
+                        input(type="checkbox" value="Perfil C")
+                        | Perfil C
+                    label.radio-inline
+                        input(type="checkbox" value="Perfil D")
+                        | Perfil D
+        div.row
+            div.col-md-offset-11
+                button.btn.btn-primary(type="submit") Salvar
+

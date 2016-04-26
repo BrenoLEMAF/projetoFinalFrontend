@@ -1,0 +1,70 @@
+
+<div>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <p class="fonte-titulo">Adicionar novo usuário</p>
+    </div>
+  </div>
+  <form role="form">
+    <div class="row form-group">
+      <div class="col-md-4">
+        <!--NOME, CPF, DATA NASCIMENTO, SEXO, CARGO, LISTA DE PERFIS-->
+        <label for="nome">Nome:</label>
+        <input id="nome" type="text" placeholder="Nome Completo" class="form-control"/>
+      </div>
+      <div class="col-md-4">
+        <label for="cpf">CPF:</label>
+        <input id="cpf" type="text" placeholder="CPF" class="form-control"/>
+      </div>
+      <div class="col-md-4">
+        <label for="dataNasc">Data de Nascimento:</label>
+        <input id="dataNasc" type="date" placeholder="Data de Nascimento" class="form-control"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label>Sexo:</label>
+        <div>
+          <label class="radio-inline">
+            <input type="radio" name="sexo" value="F"/>Feminino
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="sexo" value="M"/>Masculino
+          </label>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label>Cargo:</label>
+        <select class="form-control">
+          <option>Presidente</option>
+          <option>Gerente</option>
+          <option>Diretor</option>
+          <option>Supervisor</option>
+          <option>Analista</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label>Perfis:</label>
+        <div>
+          <label class="radio-inline">
+            <input type="checkbox" value="Perfil A"/>Perfil A
+          </label>
+          <label class="radio-inline">
+            <input type="checkbox" value="Perfil B"/>Perfil B
+          </label>
+          <label class="radio-inline">
+            <input type="checkbox" value="Perfil C"/>Perfil C
+          </label>
+          <label class="radio-inline">
+            <input type="checkbox" value="Perfil D"/>Perfil D
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-offset-11">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </div>
+  </form>
+</div>
