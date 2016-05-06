@@ -1,0 +1,56 @@
+div(ng-controller="UsuarioCtrl")
+    div.row
+        div.col-md-12.text-center
+            p.fonte-titulo Adicionar / Editar usuário
+
+    form(role="form", ng-submit="gravar(usuario)")
+        div.row.form-group
+            div.col-md-4
+                //NOME, CPF, DATA NASCIMENTO, SEXO, CARGO, LISTA DE PERFIS
+                label Nome:
+                input.form-control(type="text", ng-value="usuario.nome", ng-model="usuario.nome", placeholder="Nome Completo", required)
+            div.col-md-4
+                label CPF:
+                input.form-control(type="text", ng-value="usuario.cpf", ng-model="usuario.cpf", placeholder="CPF", required)
+            div.col-md-4
+                label Data de Nascimento:
+                input.form-control(type="text", ng-value="usuario.dataNascimento", ng-model="usuario.dataNascimento", placeholder="Data de Nascimento")
+
+        div.row.form-group
+            div.col-md-4
+                label Sexo:
+                div
+                    label.radio-inline
+                        input(type="radio", name="sexo", ng-model="usuario.sexo", value="F", ng-checked="comparaSexo('F')")
+                        | Feminino
+                    label.radio-inline
+                        input(type="radio", name="sexo", ng-model="usuario.sexo", value="M", ng-checked="comparaSexo('M')")
+                        | Masculino
+
+            div.col-md-4
+                label Cargo:
+                select.form-control(name="cargos", ng-model="usuario.cargo", ng-options="cargo.nome for cargo in cargos track by cargo.id", required)
+                    option(value="", ng-selected="selected", disabled) Cargo
+
+            div.col-md-4
+                label Perfis:
+                    div
+                        label.checkbox-inline(ng-repeat="perfil in perfis")
+                            input(name="perfil{{$index}}", type="checkbox", ng-click="mudaPerfil(perfil)", ng-checked="existePerfil(perfil) >= 0")
+                            | {{perfil.nome}}
+
+        div.row
+            div.col-md-1.col-md-offset-1
+            div.col-md-offset-9
+
+                button.btn.btn-success(type="submit")
+                    span.glyphicon.glyphicon-ok
+                    span  Salvar
+                button.btn.btn-warning(ng-click="reset()")
+                    span.glyphicon.glyphicon-erase
+                    span  Limpar
+                a.btn.btn-danger(href="#/usuarios", role="button")
+                    span.glyphicon.glyphicon-remove
+                    span  Cancelar
+
+

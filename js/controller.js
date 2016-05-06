@@ -2,94 +2,178 @@
 
 /* Controllers */
 
-var app = angular.module('app', ['ngRoute', 'ngAnimate']);
+var ctrl = angular.module('ctrl', []);
 
-app.config(['$routeProvider', '$locationProvider',
-    function($routeProvider, $locationProvider) {
-        $routeProvider
-            .when('/usuarios', {
-                templateUrl: 'usuarios.html',
-                controller: 'UsuariosCtrl',
-                controllerAs: 'usuarios'
-            })
-            .when('/usuarios/novo', {
-                templateUrl: 'novoUsuario.html',
-                controller: 'AddUsuariosCtrl',
-                controllerAs: 'novo'
-            })
-            .when('/cargos', {
-                templateUrl: 'cargos.html',
-                controller: 'CargosCtrl',
-                controllerAs: 'cargos'
-            })
-            .when('/perfis', {
-                templateUrl: 'perfis.html',
-                controller: 'PerfisCtrl',
-                controllerAs: 'perfis'
-            });
-    }]);
-
-app.controller('PillsCtrl', function($scope, $location) {
-    $scope.pills = [
-        {name: 'Usuários',
-            url: '#usuarios' },
-        {name: 'Cargos',
-            url: '#cargos' },
-        {name: 'Perfis',
-            url: '#perfis' }
-    ];
+ctrl.controller('PillsCtrl', function($scope, $location) {
 
     $scope.isActive = function (viewLocation) {
         return viewLocation === $location.path();
     };
+});
+
+ctrl.controller('UsuariosCtrl', function($scope, $routeParams, UsuarioService) {
+
+    $scope.usuarios = UsuarioService.listar();
+
+    $scope.pushPerfil = function(perfil) {
+        var perfis = "";
+        perfis.forEach(function(perfil) {
+            perfis += perfil.nome + ", ";
+        });
+        return lista;
+    };
+
+    $scope.remover = function (usuario) {
+        UsuarioService.apagar(usuario, function(){
+            alert("Usuário removido com sucesso.");
+            location.reload();
+        }, function(){
+            alert("Falha ao remover o usuário.")
+        });
+    };
 
 });
 
-app.controller('UsuariosCtrl', function($scope, $routeParams) {
+ctrl.controller('CargosCtrl', function($scope, $routeParams, CargoService) {
 
-    $scope.usuarios = [
-        {nome: 'Breno Rios Zeymer', cpf: '12345678998', dataNasc: '14/11/1984', sexo: 'M', cargo: 'Presidente', perfis: "Perfil A, Perfil B", id: '1' },
-        {nome: 'Raphael Rios Zeymer', cpf: '98765432187', dataNasc: '04/07/1990', sexo: 'M', cargo: 'Diretor', perfis: "Perfil B, Perfil C", id: '2' },
-        {nome: 'Maria Tereza Pereira Rios', cpf: '11111111111', dataNasc: '11/11/1954', sexo: 'F', cargo: 'Supervisor', perfis: "Perfil C, Perfil F", id: '3' },
-        {nome: 'Fulano da Silva Sauro', cpf: '22222222222', dataNasc: '01/01/1960', sexo: 'M', cargo: 'Diretor', perfis: "Perfil E, Perfil F", id: '4' },
-        {nome: 'Ciclano de Almeida Gomes', cpf: '33333333333', dataNasc: '05/07/2001', sexo: 'M', cargo: 'Supervisor', perfis: "Perfil A, Perfil D", id: '5' }
-    ];
+    $scope.cargos = CargoService.listar();
 
-    this.name = "UsuariosCtrl";
-    this.params = $routeParams;
+    $scope.gravar = function (cargo) {
+        CargoService.salvar(cargo, function(data){
+            alert(data);
+            //location.reload();
+        }, function(erro){
+            if (erro.status == 500){
+                alert(erro.data)
+            } else {
+                alert(erro);
+            };
+        });
+    };
+
+    $scope.editar = function (cargo) {
+        var retorno = CargoService.editar(cargo);
+        location.reload();
+        return retorno;
+    };
+
+    $scope.remover = function (cargo) {
+        CargoService.apagar(cargo, function(data){
+            alert(data);
+            location.reload();
+        }, function(erro){
+            if (erro.status == 500){
+               alert("Falha ao remover. \nExiste usuário cadastrado com este cargo.")
+            };
+        });
+
+    };
+
 });
 
-app.controller('AddUsuariosCtrl', ['$routeParams', function($routeParams) {
-    this.name = "AddUsuariosCtrl";
-    this.params = $routeParams;
-}]);
+ctrl.controller('PerfisCtrl', function($scope, $routeParams, PerfilService) {
 
-app.controller('CargosCtrl', function($scope, $routeParams) {
+    $scope.perfis = PerfilService.listar();
+    $scope.perfisOriginais = angular.copy($scope.perfis);
 
-    $scope.cargos = [
-        {nome: 'Presidente', id: '1' },
-        {nome: 'Gerente', id: '2' },
-        {nome: 'Supervisor', id: '3' }
-    ];
+    $scope.gravar = function (perfil) {
+        var retorno = PerfilService.salvar(perfil);
+        location.reload();
+        return retorno;
+    };
 
-    this.name = "CargosCtrl";
-    this.params = $routeParams;
+    $scope.editar = function (perfil) {
+        var retorno = PerfilService.editar(perfil);
+        location.reload();
+        return retorno;
+    };
+
+    $scope.remover = function (perfil) {
+        var retorno =  PerfilService.apagar(perfil);
+        location.reload();
+        return retorno;
+    };
+
+    $scope.resetEdit = function(perfil) {
+        perfil.nome = $scope.perfisOriginais.nome;
+    }
+
+
 });
 
-app.controller('PerfisCtrl', function($scope, $routeParams) {
+ctrl.controller('UsuarioCtrl', function($scope, $routeParams, $location, UsuarioService, CargoService, PerfilService) {
 
-    $scope.perfis = [
-        {nome: 'Perfil A', id: '1' },
-        {nome: 'Perfil B', id: '2' },
-        {nome: 'Perfil C', id: '3' },
-        {nome: 'Perfil D', id: '4' },
-        {nome: 'Perfil E', id: '5' },
-        {nome: 'Perfil F', id: '6' },
-    ];
+    if ($routeParams.id == 0){
+        $scope.usuario = {
+            "nome": "",
+            "cpf": "",
+            "dataNascimento": "",
+            "sexo": "",
+            "cargo": {},
+            "perfis": []
+        };
+    } else {
+        $scope.usuario = UsuarioService.buscar($routeParams);
+    }
 
-    this.name = "PerfisCtrl";
-    this.params = $routeParams;
+    $scope.cargos = CargoService.listar();
+    $scope.perfis = PerfilService.listar();
+
+    $scope.existePerfil = function(perfil) {
+        var existe = -1;
+        var i;
+        if ($scope.usuario.perfis != undefined) {
+            for (i = 0; i < $scope.usuario.perfis.length; i++) {
+                if ($scope.usuario.perfis[i].nome == perfil.nome) {
+                    existe = i;
+                }
+            }
+        }
+        return existe
+    };
+
+    $scope.mudaPerfil = function(perfil) {
+        var i = $scope.existePerfil(perfil);
+        if(i >= 0){
+            $scope.usuario.perfis.splice(i, 1);
+        } else {
+            $scope.usuario.perfis.push(perfil);
+        }
+    };
+
+    $scope.comparaSexo = function(sexo) {
+        var igual = false;
+        if ($scope.usuario.sexo === sexo){
+            igual = true;
+        }
+        return igual;
+    };
+
+    $scope.gravar = function (usuario) {
+        UsuarioService.salvar(usuario);
+        $location.url('/usuarios');
+    };
+
+    $scope.reset = function () {
+        if ($routeParams.id == 0){
+            $scope.usuario = {
+                "nome": "",
+                "cpf": "",
+                "dataNascimento": "",
+                "sexo": "",
+                "cargo": {},
+                "perfis": []
+            };
+        } else {
+            $scope.usuario = UsuarioService.buscar($routeParams);
+        }
+    };
+
+
+
 });
+
+
 
 
 

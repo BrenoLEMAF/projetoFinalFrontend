@@ -5,6 +5,12 @@
   letter-spacing: -1px;
   font-weight: 700;
 }
+
+.top-margin {
+  margin-top:20px;
+}
+
+
 .view-animate-container {
   position: relative;
   height: 100px!important;

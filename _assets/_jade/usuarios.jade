@@ -1,35 +1,43 @@
-table.table(ng-controller="UsuariosCtrl")
-    thead
-        tr
-            th.col-md-2 Nome
-            th.col-md-1 CPF
-            th.col-md-1 Data de Nascimento
-            th.col-md-1 Sexo
-            th.col-md-1 Cargo
-            th.col-md-4 Perfis
-            th.col-md-2 Ações
+div(ng-controller="UsuariosCtrl")
+    table.table
+        thead
+            tr
+                th.col-md-2 Nome
+                th.col-md-1 CPF
+                th.col-md-1 Data de Nascimento
+                th.col-md-1 Sexo
+                th.col-md-1 Cargo
+                th.col-md-4 Perfis
+                th.col-md-2
 
-    tbody
-        tr(ng-repeat="usuario in usuarios")
-            td.col-md-2 {{usuario.nome}}
-            td.col-md-1 {{usuario.cpf}}
-            td.col-md-1 {{usuario.dataNasc}}
-            td.col-md-1 {{usuario.sexo}}
-            td.col-md-1 {{usuario.cargo}}
-            td.col-md-4 {{usuario.perfis}}
-            td.col-md-2
-                button.btn.btn-primary(type="button") Editar
-                button.btn.btn-danger(type="button") &times Remover
+        tbody
+            tr(ng-repeat="usuario in usuarios | filter:query")
+                td.col-md-2 {{usuario.nome}}
+                td.col-md-1 {{usuario.cpf}}
+                td.col-md-1 {{usuario.dataNascimento}}
+                td.col-md-1 {{usuario.sexo}}
+                td.col-md-1 {{usuario.cargo.nome}}
+                td.col-md-4
+                    select.form-control.disabled
+                        option(ng-repeat="perfil in usuario.perfis") {{perfil.nome}}
 
-div.row
-    div.col-md-1.text-right
-        label Filtro:
-    div.col-md-4
-        input#filtro.form-control(type="text", placeholder="filtrar por...")
-    div.col-md-1.col-md-offset-3
-        a.btn.btn-primary(href="#/usuarios/novo", role="button") + Adicionar
+                td.col-md-2.text-right
+                    a.btn.btn-primary(ng-href="#/usuarios/usuario?id={{usuario.id}}", role="button")
+                        span.glyphicon.glyphicon-edit
+                        span  Editar
+                    button.btn.btn-danger(ng-click=('remover(usuario)'))
+                        span.glyphicon.glyphicon-minus
+                        span  Remover
 
-
+    div.row
+        div.col-md-1.text-right
+            label Filtro:
+        div.col-md-4
+            input#filtro.form-control(ng-model="query", type="text", placeholder="filtrar por...")
+        div.col-md-1.col-md-offset-3
+            a.btn.btn-primary(href="#/usuarios/usuario?id=0", role="button")
+                span.glyphicon.glyphicon-plus
+                span  Adicionar
 
 
 

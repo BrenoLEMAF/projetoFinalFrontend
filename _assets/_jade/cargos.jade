@@ -1,27 +1,50 @@
-//
-   Created by breno on 25/04/16.
+div(ng-controller="CargosCtrl")
 
+    div.row.top-margin
+        div.col-md-12
+            table.table
+                thead
+                    tr
+                        th.col-md-7 Cargo
+                        th.col-md-5
+                tbody
+                    tr(ng-repeat="cargo in cargos")
+                        td.col-md-7 {{cargo.nome}}
+                        td.col-md-5.text-right
+                            button.btn.btn-primary(ng-click="mostrarEdit=!mostrarEdit")
+                                span.glyphicon.glyphicon-edit
+                                span  Editar
+                            button.btn.btn-danger(ng-click=('remover(cargo)'))
+                                span.glyphicon.glyphicon-minus
+                                span  Remover
+                            form(name="EditCargo", ng-submit="editar(cargo)", ng-show="mostrarEdit")
+                                div.col-md-4.text-right
+                                    input.form-control(ng-model="cargo.nome", type="text")
+                                div.col-md-8.text-left
+                                    button.btn.btn-success.update_button(type="submit")
+                                        span.glyphicon.glyphicon-ok
+                                        span  Salvar
+        form(name="AddCargo", ng-submit="gravar(cargo)", ng-show="mostrarNew")
+            div.col-md-12
+                table.table
+                    tbody
+                        tr
+                            td.col-md-7
+                                input.form-control(ng-model="cargo.nome", type="text", required)
+                            td.col-md-5.text-right
+                                button.btn.btn-success(type="submit")
+                                    span.glyphicon.glyphicon-ok
+                                    span  Salvar
+                                button.btn.btn-primary(disabled)
+                                    span.glyphicon.glyphicon-edit
+                                    span  Editar
+                                button.btn.btn-danger(disabled)
+                                    span.glyphicon.glyphicon-minus
+                                    span  Remover
 
-table.table(ng-controller="CargosCtrl")
-    thead
-        tr
-            th.col-md-10 Cargo
-            th.col-md-2 Ações
-    tbody
-        tr(ng-repeat="cargo in cargos")
-            td.col-md-10 {{cargo.nome}}
-            td.col-md-2
-                button.btn.btn-primary(type="button") Editar
-                button.btn.btn-danger(type="button") &times Remover
-
-div.row
-    div.col-md-2.text-right
-        label(for="usr") Novo cargo:
-    div.col-md-6
-        input.form-control(type="text", id="usr")
-    div.col-md-4
-        button.btn.btn-primary(type="button") + Adicionar
-
+    button.btn.btn-primary(ng-click="mostrarNew=!mostrarNew")
+        span.glyphicon.glyphicon-plus
+        span  Adicionar
 
 
 
