@@ -15,21 +15,9 @@ ctrl.controller('UsuariosCtrl', function($scope, $routeParams, UsuarioService) {
 
     $scope.usuarios = UsuarioService.listar();
 
-    $scope.pushPerfil = function(perfil) {
-        var perfis = "";
-        perfis.forEach(function(perfil) {
-            perfis += perfil.nome + ", ";
-        });
-        return lista;
-    };
-
     $scope.remover = function (usuario) {
-        UsuarioService.apagar(usuario, function(){
-            alert("Usuário removido com sucesso.");
-            location.reload();
-        }, function(){
-            alert("Falha ao remover o usuário.")
-        });
+        UsuarioService.apagar(usuario);
+        location.reload();
     };
 
 });
@@ -39,34 +27,28 @@ ctrl.controller('CargosCtrl', function($scope, $routeParams, CargoService) {
     $scope.cargos = CargoService.listar();
 
     $scope.gravar = function (cargo) {
-        CargoService.salvar(cargo, function(data){
-            alert(data);
-            //location.reload();
+        CargoService.salvar(cargo, function(){
+            location.reload();
         }, function(erro){
-            if (erro.status == 500){
-                alert(erro.data)
-            } else {
-                alert(erro);
-            };
+            alert(erro.data);
         });
     };
 
     $scope.editar = function (cargo) {
-        var retorno = CargoService.editar(cargo);
-        location.reload();
-        return retorno;
+        CargoService.editar(cargo, function(){
+            location.reload();
+        }, function(erro){
+            alert(erro.data);
+            location.reload();
+        });
     };
 
     $scope.remover = function (cargo) {
-        CargoService.apagar(cargo, function(data){
-            alert(data);
+        CargoService.apagar(cargo, function(){
             location.reload();
         }, function(erro){
-            if (erro.status == 500){
-               alert("Falha ao remover. \nExiste usuário cadastrado com este cargo.")
-            };
+            alert(erro.data);
         });
-
     };
 
 });
@@ -77,21 +59,29 @@ ctrl.controller('PerfisCtrl', function($scope, $routeParams, PerfilService) {
     $scope.perfisOriginais = angular.copy($scope.perfis);
 
     $scope.gravar = function (perfil) {
-        var retorno = PerfilService.salvar(perfil);
-        location.reload();
-        return retorno;
+        PerfilService.salvar(perfil, function(){
+            location.reload();
+        }, function(erro){
+            alert(erro.data);
+        });
+
     };
 
     $scope.editar = function (perfil) {
-        var retorno = PerfilService.editar(perfil);
-        location.reload();
-        return retorno;
+        PerfilService.editar(perfil, function(){
+            location.reload();
+        }, function(erro){
+            alert(erro.data);
+            location.reload();
+        });
     };
 
     $scope.remover = function (perfil) {
-        var retorno =  PerfilService.apagar(perfil);
-        location.reload();
-        return retorno;
+        PerfilService.apagar(perfil, function(){
+            location.reload();
+        }, function(erro){
+            alert(erro.data);
+        });
     };
 
     $scope.resetEdit = function(perfil) {
@@ -150,8 +140,11 @@ ctrl.controller('UsuarioCtrl', function($scope, $routeParams, $location, Usuario
     };
 
     $scope.gravar = function (usuario) {
-        UsuarioService.salvar(usuario);
-        $location.url('/usuarios');
+        UsuarioService.salvar(usuario, function(){
+            $location.url('/usuarios');
+        }, function(erro){
+            alert(erro.data);
+        });
     };
 
     $scope.reset = function () {
@@ -168,9 +161,6 @@ ctrl.controller('UsuarioCtrl', function($scope, $routeParams, $location, Usuario
             $scope.usuario = UsuarioService.buscar($routeParams);
         }
     };
-
-
-
 });
 
 
