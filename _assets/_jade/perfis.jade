@@ -14,7 +14,7 @@ div(ng-controller="PerfisCtrl")
                             button.btn.btn-primary(ng-click="mostrarEdit=!mostrarEdit")
                                 span.glyphicon.glyphicon-edit
                                 span  Editar
-                            button.btn.btn-danger(ng-click=('remover(perfil)'))
+                            button.btn.btn-danger(ng-click=('remover(perfil.id)'))
                                 span.glyphicon.glyphicon-minus
                                 span  Remover
                             form(name="EditPerfil", ng-submit="editar(perfil)", ng-show="mostrarEdit")

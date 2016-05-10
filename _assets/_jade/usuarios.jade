@@ -25,7 +25,7 @@ div(ng-controller="UsuariosCtrl")
                     a.btn.btn-primary(ng-href="#/usuarios/usuario?id={{usuario.id}}", role="button")
                         span.glyphicon.glyphicon-edit
                         span  Editar
-                    button.btn.btn-danger(ng-click=('remover(usuario)'))
+                    button.btn.btn-danger(ng-click=('remover(usuario.id)'))
                         span.glyphicon.glyphicon-minus
                         span  Remover
 

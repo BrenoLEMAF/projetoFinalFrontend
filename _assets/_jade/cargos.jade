@@ -14,7 +14,7 @@ div(ng-controller="CargosCtrl")
                             button.btn.btn-primary(ng-click="mostrarEdit=!mostrarEdit")
                                 span.glyphicon.glyphicon-edit
                                 span  Editar
-                            button.btn.btn-danger(ng-click=('remover(cargo)'))
+                            button.btn.btn-danger(ng-click=('remover(cargo.id)'))
                                 span.glyphicon.glyphicon-minus
                                 span  Remover
                             form(name="EditCargo", ng-submit="editar(cargo)", ng-show="mostrarEdit")

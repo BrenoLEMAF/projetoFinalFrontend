@@ -13,21 +13,24 @@ ctrl.controller('PillsCtrl', function($scope, $location) {
 
 ctrl.controller('UsuariosCtrl', function($scope, $routeParams, UsuarioService) {
 
-    $scope.usuarios = UsuarioService.listar();
+    $scope.usuarios = UsuarioService.query();
 
-    $scope.remover = function (usuario) {
-        UsuarioService.apagar(usuario);
-        location.reload();
+    $scope.remover = function (id) {
+        UsuarioService.delete({id: id}, function(){
+            location.reload();
+        }, function(erro){
+            alert(erro.data);
+        });
     };
 
 });
 
 ctrl.controller('CargosCtrl', function($scope, $routeParams, CargoService) {
 
-    $scope.cargos = CargoService.listar();
+    $scope.cargos = CargoService.query();
 
     $scope.gravar = function (cargo) {
-        CargoService.salvar(cargo, function(){
+        CargoService.save(cargo, function(){
             location.reload();
         }, function(erro){
             alert(erro.data);
@@ -35,7 +38,7 @@ ctrl.controller('CargosCtrl', function($scope, $routeParams, CargoService) {
     };
 
     $scope.editar = function (cargo) {
-        CargoService.editar(cargo, function(){
+        CargoService.put(cargo, function(){
             location.reload();
         }, function(erro){
             alert(erro.data);
@@ -43,8 +46,8 @@ ctrl.controller('CargosCtrl', function($scope, $routeParams, CargoService) {
         });
     };
 
-    $scope.remover = function (cargo) {
-        CargoService.apagar(cargo, function(){
+    $scope.remover = function (id) {
+        CargoService.delete({id: id}, function(){
             location.reload();
         }, function(erro){
             alert(erro.data);
@@ -55,11 +58,11 @@ ctrl.controller('CargosCtrl', function($scope, $routeParams, CargoService) {
 
 ctrl.controller('PerfisCtrl', function($scope, $routeParams, PerfilService) {
 
-    $scope.perfis = PerfilService.listar();
+    $scope.perfis = PerfilService.query();
     $scope.perfisOriginais = angular.copy($scope.perfis);
 
     $scope.gravar = function (perfil) {
-        PerfilService.salvar(perfil, function(){
+        PerfilService.save(perfil, function(){
             location.reload();
         }, function(erro){
             alert(erro.data);
@@ -68,7 +71,7 @@ ctrl.controller('PerfisCtrl', function($scope, $routeParams, PerfilService) {
     };
 
     $scope.editar = function (perfil) {
-        PerfilService.editar(perfil, function(){
+        PerfilService.put(perfil, function(){
             location.reload();
         }, function(erro){
             alert(erro.data);
@@ -76,8 +79,8 @@ ctrl.controller('PerfisCtrl', function($scope, $routeParams, PerfilService) {
         });
     };
 
-    $scope.remover = function (perfil) {
-        PerfilService.apagar(perfil, function(){
+    $scope.remover = function (id) {
+        PerfilService.delete({id: id}, function(){
             location.reload();
         }, function(erro){
             alert(erro.data);
@@ -103,11 +106,13 @@ ctrl.controller('UsuarioCtrl', function($scope, $routeParams, $location, Usuario
             "perfis": []
         };
     } else {
-        $scope.usuario = UsuarioService.buscar($routeParams);
+        $scope.usuario = UsuarioService.get($routeParams, function(){}, function(erro){
+            alert(erro.data);
+        });
     }
 
-    $scope.cargos = CargoService.listar();
-    $scope.perfis = PerfilService.listar();
+    $scope.cargos = CargoService.query();
+    $scope.perfis = PerfilService.query();
 
     $scope.existePerfil = function(perfil) {
         var existe = -1;
@@ -140,7 +145,7 @@ ctrl.controller('UsuarioCtrl', function($scope, $routeParams, $location, Usuario
     };
 
     $scope.gravar = function (usuario) {
-        UsuarioService.salvar(usuario, function(){
+        UsuarioService.save(usuario, function(){
             $location.url('/usuarios');
         }, function(erro){
             alert(erro.data);
@@ -158,7 +163,9 @@ ctrl.controller('UsuarioCtrl', function($scope, $routeParams, $location, Usuario
                 "perfis": []
             };
         } else {
-            $scope.usuario = UsuarioService.buscar($routeParams);
+            $scope.usuario = UsuarioService.get($routeParams, function(){}, function(erro){
+                alert(erro.data);
+            });
         }
     };
 });
